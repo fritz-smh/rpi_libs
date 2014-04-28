@@ -33,11 +33,17 @@ class RfidSerialMFRC522:
             When a card id is detected, call the callback with the id as parameter
             @param callback : function to call when a card is detected
         """
+        print("Start to listen to the rfid reader")
         while True:
-            card_bin = self.rfid_reader.read(4)
-            card_txt = binascii.hexlify(card_bin)
-            callback(card_txt)
-        self.rfid_reader.close()
+            try:
+                card_bin = self.rfid_reader.read(4)
+                card_txt = binascii.hexlify(card_bin)
+                print("Rfid item detected : {0}".format(card_txt))
+                callback(card_txt)
+            except (KeyboardInterrupt, SystemExit):
+                print("Keyboard (or system) interrupt : stop listening to the rfid reader!")
+                self.rfid_reader.close()
+                raise
 
 
 def my_cb(data):
