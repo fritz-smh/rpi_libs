@@ -13,7 +13,8 @@ class RfidSerialMFRC522:
         try:
             self.rfid_reader = serial.Serial(device)
         except:
-            raise "Error while opening Rfid reader : {0}".format(traceback.format_exc())
+            print("Error while opening Rfid reader : {0}".format(traceback.format_exc()))
+            raise
 
         # Configure the RFID reader 
         # command     # explain
