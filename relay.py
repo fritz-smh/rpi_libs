@@ -9,6 +9,7 @@ class Relay:
        The relaybord is controlled by logic levels (1 wire per relay).
        Logic level low => Relay closed (for NC mode)
        Logic level high => Relay opened (for NC mode)
+    """
 
     def __init__(self, name, pin):
         self.name = name
