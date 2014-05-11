@@ -5,6 +5,10 @@ GPIO.setmode(GPIO.BOARD)
 
 
 class Relay:
+    """
+       The relaybord is controlled by logic levels (1 wire per relay).
+       Logic level low => Relay closed (for NC mode)
+       Logic level high => Relay opened (for NC mode)
 
     def __init__(self, name, pin):
         self.name = name
@@ -14,12 +18,12 @@ class Relay:
     def on(self):
         """ Set the relay on (if NC) 
         """
-        GPIO.output(self.pin, True)
+        GPIO.output(self.pin, False)
         
     def off(self):
-        """ Set the relay on (if NC) 
+        """ Set the relay off (if NC) 
         """
-        GPIO.output(self.pin, False)
+        GPIO.output(self.pin, True)
 
     def pulse(self, time_ms = 1000):
         """ Make the relay on for <time_ms> ms and then make it off. 
