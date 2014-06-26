@@ -21,11 +21,13 @@ class Relay:
     def relay_close(self):
         """ Close the relay (for NO wiring)
         """
+        print("Close the relay (if NO) : {0}".format(self.name))
         GPIO.output(self.pin, False)
         
     def relay_open(self):
         """ Open the relay (for NO wiring)
         """
+        print("Open the relay (if NO) : {0}".format(self.name))
         GPIO.output(self.pin, True)
 
     def pulse_no(self, time_ms = 1000):

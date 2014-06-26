@@ -30,6 +30,8 @@ class RfidSerialMFRC522:
         # here we just want to read the cards id :
         # the auth process will be done somewhere else
         self.rfid_reader.write("\x02")
+        # flush 
+        #self.rfid_reader.flush()
 
     def read(self, callback):
         """ Listen for the rfid reader
@@ -40,6 +42,8 @@ class RfidSerialMFRC522:
         while True:
             try:
                 card_bin = self.rfid_reader.read(4)
+                # flush the input in case there were too much data waiting....
+                self.rfid_reader.flushInput()
                 card_txt = binascii.hexlify(card_bin)
                 print("Rfid item detected : {0}".format(card_txt))
                 callback(card_txt)
