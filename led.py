@@ -4,6 +4,7 @@
 import time
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
+import logging
 
 
 class Led:
@@ -16,18 +17,21 @@ class Led:
     def on(self):
         """ Switch the led on
         """
+        logging.debug("Set led '{0}' to on".format(self.name))
         GPIO.output(self.pin, True)
         
     def off(self):
         """ Switch the led off
         """
+        logging.debug("Set led '{0}' to off".format(self.name))
         GPIO.output(self.pin, False)
 
     def blink(self, time_ms = 1000):
         """ Make the led blink 1 time (on/off). The high level will take <time_ms> ms
             @param time_ms : time of both high and low levels
         """
-        # TODO : do it as a Thread 
+        # TODO : do it as a Thread  ???
+        #        or do a second function to do it as a thread ?
         self.on()
         time.sleep(time_ms / 1000.)
         self.off()
@@ -46,6 +50,7 @@ class Led:
        
         
 if __name__ == "__main__":
+    logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s', level=logging.DEBUG)
     l = Led("led 7", 7)
     l.blink_n()
     l.blink()

@@ -4,6 +4,7 @@
 import time
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
+import logging
 
 
 class Relay:
@@ -21,13 +22,13 @@ class Relay:
     def relay_close(self):
         """ Close the relay (for NO wiring)
         """
-        print("Close the relay (if NO) : {0}".format(self.name))
+        logging.debug("Close the relay (if NO) : {0}".format(self.name))
         GPIO.output(self.pin, False)
         
     def relay_open(self):
         """ Open the relay (for NO wiring)
         """
-        print("Open the relay (if NO) : {0}".format(self.name))
+        logging.debug("Open the relay (if NO) : {0}".format(self.name))
         GPIO.output(self.pin, True)
 
     def pulse_no(self, time_ms = 1000):
@@ -39,5 +40,6 @@ class Relay:
         self.relay_open()
        
 if __name__ == "__main__":
+    logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s', level=logging.DEBUG)
     r = Relay("relay on gpio 11", 11)
     r.pulse_no()
